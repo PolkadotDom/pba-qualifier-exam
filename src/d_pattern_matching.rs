@@ -6,35 +6,44 @@
 
 /// Returns true if the last two strings in the vector start with `PBA`.
 pub fn match_1(input: Vec<String>) -> bool {
-	todo!();
+	match input.as_slice() {
+		[.., a, b] => a.starts_with("PBA") && b.starts_with("PBA"),
+		_ => false
+	}
 }
 
 /// Returns true if the first and last string in the vector start with `PBA`.
 pub fn match_2(input: Vec<String>) -> bool {
-	todo!();
+	match input.as_slice() {
+		[a, .., b] => a.starts_with("PBA") && b.starts_with("PBA"),
+		_ => false
+	}
 }
 
 /// Returns true if the first item in `input` is true.
 pub fn match_3(input: (bool, bool, bool)) -> bool {
-	todo!();
+	matches!(input.0, true)
 }
 
 /// Returns true if the input is `Ok(x)` of some even `x`.
 pub fn match_4(input: Result<u32, &'static str>) -> bool {
-	todo!();
+	match input {
+		Ok(x) if x % 2 == 0 => true,
+		_ => false
+	}
 }
 
 /// This function is not graded. It is just for collecting feedback.
 /// On a scale from 0 - 255, with zero being extremely easy and 255 being extremely hard,
 /// how hard did you find this section of the exam.
 pub fn how_hard_was_this_section() -> u8 {
-	todo!()
+	100
 }
 
 /// This function is not graded. It is just for collecting feedback.
 /// How much time (in hours) did you spend on this section of the exam?
 pub fn how_many_hours_did_you_spend_on_this_section() -> u8 {
-	todo!()
+	1
 }
 
 #[cfg(test)]
@@ -59,6 +68,12 @@ mod tests {
 	}
 
 	#[test]
+	fn test_match_1_empty_false() {
+		let strs: Vec<String> = vec![];
+		assert!(!match_1(strs))
+	}
+
+	#[test]
 	fn test_match_2() {
 		let strs = vec![
 			"PBAHello".to_string(),
@@ -77,6 +92,11 @@ mod tests {
 	#[test]
 	fn test_match_4_true() {
 		assert!(match_4(Ok(6)))
+	}
+
+	#[test]
+	fn test_match_4_false_odd() {
+		assert!(!match_4(Ok(5)))
 	}
 
 	#[test]
