@@ -36,6 +36,7 @@ use crate::e_common_traits::Employee;
 /// assert!(fail.is_err());
 /// # }
 /// ```
+#[derive(Clone)]
 pub struct EmployeeBuilder {
 	name: Option<String>,
 	uid: Option<u32>,
@@ -54,25 +55,43 @@ impl Default for EmployeeBuilder {
 	}
 }
 
+//won't change the signatures but I would make self mutable instead of cloning
 impl EmployeeBuilder {
 	pub fn name(self, name: String) -> Self {
-		todo!("finish the implementation.");
+		let mut self_mut = self.clone();
+		self_mut.name = Some(name);
+		self_mut
 	}
 
 	pub fn uid(self, uid: u32) -> Self {
-		todo!("finish the implementation.");
+		let mut self_mut = self.clone();
+		self_mut.uid = Some(uid);
+		self_mut
 	}
 
 	pub fn experience(self, experience: u32) -> Self {
-		todo!("finish the implementation.");
+		let mut self_mut = self.clone();
+		self_mut.experience = experience;
+		self_mut
 	}
 
 	pub fn wage(self, wage: u32) -> Self {
-		todo!("finish the implementation.");
+		let mut self_mut = self.clone();
+		self_mut.wage = wage;
+		self_mut
 	}
 
 	pub fn build(self) -> Result<Employee, ()> {
-		todo!("finish the implementation.");
+		let res = match (self.name, self.uid) {
+			(Some(name), Some(uid)) => Ok(Employee {
+				name: name,
+				experience: self.experience,
+				wage: self.wage,
+				uid: uid,
+			}),
+			_ => Err(()),
+		};
+		res
 	}
 }
 
@@ -157,24 +176,51 @@ impl Default for TypedEmployeeBuilder<NotNamed, UnIdentified> {
 }
 
 impl<Name, Id> TypedEmployeeBuilder<Name, Id> {
-	pub fn name(self, name: String) -> Self {
-		todo!("finish the implementation. Note that you might need to move some of these functions to a new `impl` blocks with different trait bounds, or change the return type to use `Named` etc.");
+	pub fn name(self, name: String) -> TypedEmployeeBuilder<Named, Id> {
+		TypedEmployeeBuilder::<Named, Id> {
+			experience: self.experience,
+			wage: self.wage,
+			name: Named { name },
+			uid: self.uid,
+		}
 	}
 
-	pub fn uid(self, uid: u32) -> Self {
-		todo!("finish the implementation. Note that you might need to move some of these functions to a new `impl` blocks with different trait bounds, or change the return type to use `Named` etc.");
+	pub fn uid(self, uid: u32) -> TypedEmployeeBuilder<Name, Identified> {
+		TypedEmployeeBuilder::<Name, Identified> {
+			experience: self.experience,
+			wage: self.wage,
+			name: self.name,
+			uid: Identified { uid },
+		}
 	}
 
 	pub fn experience(self, experience: u32) -> Self {
-		todo!("finish the implementation. Note that you might need to move some of these functions to a new `impl` blocks with different trait bounds, or change the return type to use `Named` etc.");
+		TypedEmployeeBuilder {
+			experience: experience,
+			wage: self.wage,
+			name: self.name,
+			uid: self.uid,
+		}
 	}
 
 	pub fn wage(self, wage: u32) -> Self {
-		todo!("finish the implementation. Note that you might need to move some of these functions to a new `impl` blocks with different trait bounds, or change the return type to use `Named` etc.");
+		TypedEmployeeBuilder {
+			experience: self.experience,
+			wage: wage,
+			name: self.name,
+			uid: self.uid,
+		}
 	}
+}
 
+impl TypedEmployeeBuilder<Named, Identified> {
 	pub fn build(self) -> Employee {
-		todo!("finish the implementation. Note that you might need to move some of these functions to a new `impl` blocks with different trait bounds, or change the return type to use `Named` etc.");
+		Employee {
+			name: self.name.name,
+			experience: self.experience,
+			wage: self.wage,
+			uid: self.uid.uid,
+		}
 	}
 }
 
@@ -182,11 +228,11 @@ impl<Name, Id> TypedEmployeeBuilder<Name, Id> {
 /// On a scale from 0 - 255, with zero being extremely easy and 255 being extremely hard,
 /// how hard did you find this section of the exam.
 pub fn how_hard_was_this_section() -> u8 {
-	todo!()
+	80
 }
 
 /// This function is not graded. It is just for collecting feedback.
 /// How much time (in hours) did you spend on this section of the exam?
 pub fn how_many_hours_did_you_spend_on_this_section() -> u8 {
-	todo!()
+	1
 }
