@@ -39,7 +39,7 @@
 /// - d) i32
 /// - e) int
 pub fn answer_1_a() -> char {
-	todo!()
+	'd'
 }
 
 /// ### Question 1_B
@@ -52,7 +52,7 @@ pub fn answer_1_a() -> char {
 /// - d) Because the original `y` value was moved into z` on line 3.
 /// - e) Because it is being borrowed.
 pub fn answer_1_b() -> char {
-	todo!()
+	'c'
 }
 
 /// ### Question 1_C
@@ -65,7 +65,7 @@ pub fn answer_1_b() -> char {
 /// - d) 0
 /// - e) 511
 pub fn answer_1_c() -> char {
-	todo!()
+	'b'
 }
 
 /// ### Question 1_D
@@ -78,7 +78,7 @@ pub fn answer_1_c() -> char {
 /// - d) `loop {}`
 /// - e) `for _ in vec![1, 2, 3] {}`
 pub fn answer_1_d() -> char {
-	todo!()
+	'a'
 }
 
 /// ## Question 2
@@ -110,7 +110,7 @@ pub fn answer_1_d() -> char {
 /// - d) It has the wrong return type.
 /// - e) The variable `result` is out of scope by the end.
 pub fn answer_2() -> char {
-	todo!()
+	'e'
 }
 
 /// ## Question 3
@@ -137,7 +137,7 @@ pub fn answer_2() -> char {
 /// - d) [4, 10, 18, 28, 40]
 /// - e) [28, 19, 12, 7, 4]
 pub fn answer_3_a() -> char {
-	todo!()
+	'a'
 }
 
 /// ### Question 3_B
@@ -151,7 +151,7 @@ pub fn answer_3_a() -> char {
 /// - d) `(1..n).step_by(1)`
 /// - e) `(1..=n).step_by(1)`
 pub fn answer_3_b() -> char {
-	todo!()
+	'd'
 }
 
 /// ## Question 4
@@ -172,7 +172,7 @@ pub fn answer_3_b() -> char {
 /// - d) Sorts the data "in place" by moving elements around.
 /// - e) Sorts the data and removes duplicate items.
 pub fn answer_4_a() -> char {
-	todo!()
+	'd'
 }
 
 /// ### Question 4_B
@@ -185,7 +185,7 @@ pub fn answer_4_a() -> char {
 /// - d) `fn sort(items: &mut [T: PartialOrd]);`
 /// - e) `fn sort(items: &mut [T: Ord]);`
 pub fn answer_4_b() -> char {
-	todo!()
+	'b'
 }
 
 /// ## Question 5
@@ -198,7 +198,7 @@ pub fn answer_4_b() -> char {
 /// - d) clippy
 /// - e) nvm
 pub fn answer_5() -> char {
-	todo!()
+	'c'
 }
 
 /// ## Question 6
@@ -234,7 +234,7 @@ pub fn answer_5() -> char {
 /// - d) Yes, because the implementation of `From` implies an implementation of `Into`.
 /// - e) Yes, because the implementation of `Into` implies an implementation of `From`.
 pub fn answer_6() -> char {
-	todo!()
+	'd'
 }
 
 /// ## Question 7
@@ -277,20 +277,20 @@ pub fn answer_6() -> char {
 /// - d) No, because the potential `ParseIntError` is never handled.
 /// - e) Yes, because the `?` operator implicitly performs a `.into()` before returning the error.
 pub fn answer_7() -> char {
-	todo!()
+	'e'
 }
 
 /// This function is not graded. It is just for collecting feedback.
 /// On a scale from 0 - 255, with zero being extremely easy and 255 being extremely hard,
 /// how hard did you find this section of the exam.
 pub fn how_hard_was_this_section() -> u8 {
-	todo!()
+	180
 }
 
 /// This function is not graded. It is just for collecting feedback.
 /// How much time (in hours) did you spend on this section of the exam?
 pub fn how_many_hours_did_you_spend_on_this_section() -> u8 {
-	todo!()
+	1
 }
 
 #[cfg(test)]

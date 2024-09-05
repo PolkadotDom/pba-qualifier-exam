@@ -12,8 +12,15 @@
 // let map1: HashMap<u32, u32> = map![1 => 2, 3 => 4, 5 => 6];
 #[macro_export]
 macro_rules! map {
-	( $($todo:tt)* ) => {
-		Default::default()
+	( $( $key:expr => $val:expr ),* $(,)?) => {
+		{
+			let mut temp_map = std::collections::HashMap::new();
+			$
+			(
+				temp_map.insert($key, $val);
+			)*
+			temp_map
+		}
 	};
 }
 
@@ -53,23 +60,34 @@ impl Get<u32> for Seven {
 }
 
 // note that you should first-thing change `$($todo:tt)*`, this simply means 'accept anything'.
-
+/// 	FortyTwo: u16 = 42;
+/// 	pub FortyTwo: u16 = 42;
 #[macro_export]
 macro_rules! impl_get {
-	( $($todo:tt)* ) => {};
+    ( $( $vis:vis $struct_name:ident : $ty:ty = $val:expr );+ $(;)? ) => {
+        $
+		(
+            $vis struct $struct_name;
+            impl $crate::k_macros::Get<$ty> for $struct_name {
+                fn get() -> $ty {
+                    $val
+                }
+            }
+        )+
+    };
 }
 
 /// This function is not graded. It is just for collecting feedback.
 /// On a scale from 0 - 255, with zero being extremely easy and 255 being extremely hard,
 /// how hard did you find this section of the exam.
 pub fn how_hard_was_this_section() -> u8 {
-	todo!()
+	220
 }
 
 /// This function is not graded. It is just for collecting feedback.
 /// How much time (in hours) did you spend on this section of the exam?
 pub fn how_many_hours_did_you_spend_on_this_section() -> u8 {
-	todo!()
+	4
 }
 
 #[cfg(test)]
@@ -102,13 +120,9 @@ mod tests {
 		);
 
 		// you should be able to make these work.
-		// assert_eq!(Foo::get(), 10);
-		// assert_eq!(Bar::get(), 42);
-		// assert_eq!(Baz::get(), 21);
-		assert_eq!(
-			true, false,
-			"Make sure to remove this line and uncomment the tests above"
-		);
+		assert_eq!(Foo::get(), 10);
+		assert_eq!(Bar::get(), 42);
+		assert_eq!(Baz::get(), 21);
 
 		// As an extra, ungraded, challenge, try to make this work.
 		// This is not part of the main problem because it requires the nightly compiler.

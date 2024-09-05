@@ -22,7 +22,7 @@ pub struct Employee {
 
 impl PartialEq for Employee {
 	fn eq(&self, other: &Self) -> bool {
-		todo!("complete the implementation");
+		self.uid == other.uid
 	}
 }
 impl Eq for Employee {}
@@ -31,16 +31,22 @@ impl Eq for Employee {}
 // `uid`, as explained above. For employees who are not equal, we sort by the value they
 // bring to the company. Value is defined as the quotient of the experience they've acquired
 // at the company divided by their wage. Use integer division for the purpose of this calculation.
-
+use std::cmp::*;
 impl PartialOrd for Employee {
-	fn partial_cmp(&self, other: &Self) -> Option<std::cmp::Ordering> {
-		todo!("complete the implementation");
+	fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+		if self == other { return Some(Ordering::Equal); }
+		let val1 = self.experience/self.wage;
+		let val2 = other.experience/other.wage;
+		Some(val1.cmp(&val2))
 	}
 }
 
 impl Ord for Employee {
-	fn cmp(&self, other: &Self) -> std::cmp::Ordering {
-		todo!("complete the implementation");
+	fn cmp(&self, other: &Self) -> Ordering {
+		if self == other { return Ordering::Equal; }
+		let val1 = self.experience/self.wage;
+		let val2 = other.experience/other.wage;
+		val1.cmp(&val2)
 	}
 }
 
@@ -59,14 +65,27 @@ impl TryFrom<String> for Employee {
 	type Error = &'static str;
 
 	fn try_from(value: String) -> Result<Self, Self::Error> {
-		todo!("complete the implementation");
+		//split string
+		let parts: Vec<&str> = value.split(',').map(str::trim).collect();
+		//extract	
+		match parts.as_slice() {
+			[name, exp, wage, uid] => {
+				return Ok(Employee {
+					name: (*name).to_string(),
+					experience: exp.parse::<u32>().map_err(|_| "string to u32 parse error")?,
+					wage: wage.parse::<u32>().map_err(|_| "string to u32 parse error")?,
+					uid: uid.parse::<u32>().map_err(|_| "string to u32 parse error")?
+				})
+			},
+			_ => return Err("Invalid format"),
+		};
 	}
 }
 
 // We also want to convert employees back into strings in the same format as above.
 impl From<Employee> for String {
 	fn from(e: Employee) -> Self {
-		todo!("complete the implementation");
+		format!("{}, {}, {}, {}", e.name, e.experience, e.wage, e.uid)
 	}
 }
 
@@ -74,13 +93,13 @@ impl From<Employee> for String {
 /// On a scale from 0 - 255, with zero being extremely easy and 255 being extremely hard,
 /// how hard did you find this section of the exam.
 pub fn how_hard_was_this_section() -> u8 {
-	todo!()
+	177
 }
 
 /// This function is not graded. It is just for collecting feedback.
 /// How much time (in hours) did you spend on this section of the exam?
 pub fn how_many_hours_did_you_spend_on_this_section() -> u8 {
-	todo!()
+	2
 }
 
 #[cfg(test)]
